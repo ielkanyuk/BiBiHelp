@@ -1,0 +1,172 @@
+﻿
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Pages/SignUp.js")" type="text/javascript"></script>
+<hr/>
+<h3>Добро пожаловать!</h3>
+
+<div class="row">
+    <div class="span4">
+        
+        <p style="font-size: 14px;">
+        Делитесь информацией о дорожной ситуации в вашем регионе. Узнавайте информацию о пробках и ДТП в реальном времени от реальных очевидцев. Вы так же можете попросить помощи в дороге или помочь кому-то спасти свой автомобиль от эвакуатора.
+        <p/>
+        <br/>
+        <p><img src="@Url.Content("~/Content/img/dz11.jpg")"></p>
+    </div>
+    <div class="span3" style="margin-left: 48px;">
+        
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @using (Html.BeginForm("LogOn", "Account", FormMethod.Post, new { Class = "iLogOnForm" }))
+                            {
+                                @*Html.HiddenFor(m => m.ClientTimeOffset)*@
+
+                                @Html.TextBox("Email", null, new {Placeholder = "Электронная почта"})
+                                @*Html.ValidationMessageFor(m => m.Email)*@
+
+                                @Html.Password("Password", null, new {Placeholder = "Пароль"})
+                                @*Html.ValidationMessageFor(m => m.Password)*@
+
+                                <p>
+                                    <button type="submit" class="btn btn-primary iLogOn">Войти</button> &nbsp; · <a style="font-size: 12px; font-weight: normal;" href="#">Забыли пароль?</a>
+                                </p>
+                            }
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+        <br/>
+        <div>
+        
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="muted">Еще не зарегистрированы? <div class="text-success">Присоединяйтесь!</div></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @using (Html.BeginForm("SignUp", "Account", FormMethod.Post, new { Class = "iRegisterForm" }))
+                            {
+                                @*Html.HiddenFor(m => m.ClientTimeOffset)*@
+
+                                @Html.TextBox("UserName", null, new {Placeholder = "Имя и фамилия"})
+                                @*Html.ValidationMessageFor(m => m.UserName)*@
+
+                                @Html.DropDownList("Region", new List<SelectListItem>()
+                                                                 {
+                                                                     new SelectListItem() { Text = "Адыгея", Value = "01" },
+                                                                     new SelectListItem() { Text = "Башкортостан", Value = "02", Selected = true},
+                                                                     new SelectListItem() { Text = "Бурятия", Value = "03" },
+                                                                     new SelectListItem() { Text = "Алтай", Value = "04" },
+                                                                     new SelectListItem() { Text = "Дагестан", Value = "05" },
+                                                                     new SelectListItem() { Text = "Ингушения", Value = "06" },
+                                                                     new SelectListItem() { Text = "Кабардино-Балкария", Value = "07" },
+                                                                     new SelectListItem() { Text = "Калмыкия", Value = "08" },
+                                                                     new SelectListItem() { Text = "Карачаево-Черкессия", Value = "09" },
+                                                                     new SelectListItem() { Text = "Карелия", Value = "10" },
+                                                                     new SelectListItem() { Text = "Коми", Value = "11" },
+                                                                     new SelectListItem() { Text = "Марий Эл", Value = "12" },
+                                                                     new SelectListItem() { Text = "Мордовия", Value = "13" },
+                                                                     new SelectListItem() { Text = "Саха (Якутия)", Value = "14" },
+                                                                     new SelectListItem() { Text = "Северная Осетия", Value = "15" },
+                                                                     new SelectListItem() { Text = "Татарстан", Value = "16" },
+                                                                     new SelectListItem() { Text = "Тыва", Value = "17" },
+                                                                     new SelectListItem() { Text = "Удмуртия", Value = "18" },
+                                                                     new SelectListItem() { Text = "Хакасия", Value = "19" },
+                                                                     new SelectListItem() { Text = "Чувашия", Value = "21" },
+                                                                     new SelectListItem() { Text = "Алтайский край", Value = "22" },
+                                                                     new SelectListItem() { Text = "Краснодарский край", Value = "23" },
+                                                                     new SelectListItem() { Text = "Красноярский край", Value = "24" },
+                                                                     new SelectListItem() { Text = "Приморский край", Value = "25" },
+                                                                     new SelectListItem() { Text = "Ставропольский край", Value = "26" },
+                                                                     new SelectListItem() { Text = "Хабаровский край", Value = "27" },
+                                                                     new SelectListItem() { Text = "Амурская обл.", Value = "28" },
+                                                                     new SelectListItem() { Text = "Архангельская обл.", Value = "29" },
+                                                                     new SelectListItem() { Text = "Астраханская обл.", Value = "30" },
+                                                                     new SelectListItem() { Text = "Белгородская обл.", Value = "31" },
+                                                                     new SelectListItem() { Text = "Брянская обл.", Value = "32" },
+                                                                     new SelectListItem() { Text = "Владимирская обл.", Value = "33" },
+                                                                     new SelectListItem() { Text = "Волгоградская обл.", Value = "34" },
+                                                                     new SelectListItem() { Text = "Вологодская обл.", Value = "35" },
+                                                                     new SelectListItem() { Text = "Воронежская обл.", Value = "36" },
+                                                                     new SelectListItem() { Text = "Ивановская обл.", Value = "37" },
+                                                                     new SelectListItem() { Text = "Иркутская обл.", Value = "38" },
+                                                                     new SelectListItem() { Text = "Калининградская обл.", Value = "39" },
+                                                                     new SelectListItem() { Text = "Калужская обл.", Value = "40" },
+                                                                     new SelectListItem() { Text = "Камчатский край", Value = "41" },
+                                                                     new SelectListItem() { Text = "Кемеровская обл.", Value = "42" },
+                                                                     new SelectListItem() { Text = "Кировская обл.", Value = "43" },
+                                                                     new SelectListItem() { Text = "Костромская обл.", Value = "44" },
+                                                                     new SelectListItem() { Text = "Курганская обл.", Value = "45" },
+                                                                     new SelectListItem() { Text = "Курская обл.", Value = "46" },
+                                                                     new SelectListItem() { Text = "Липецкая обл.", Value = "48" },
+                                                                     new SelectListItem() { Text = "Магаданская обл.", Value = "49" },
+                                                                     new SelectListItem() { Text = "Московская обл.", Value = "50" },
+                                                                     new SelectListItem() { Text = "Мурманская обл.", Value = "51" },
+                                                                     new SelectListItem() { Text = "Нижегородская обл.", Value = "52" },
+                                                                     new SelectListItem() { Text = "Новгородская обл.", Value = "53" },
+                                                                     new SelectListItem() { Text = "Новосибирская обл.", Value = "54" },
+                                                                     new SelectListItem() { Text = "Омская обл.", Value = "55" },
+                                                                     new SelectListItem() { Text = "Оренбургская обл.", Value = "56" },
+                                                                     new SelectListItem() { Text = "Орловская обл.", Value = "57" },
+                                                                     new SelectListItem() { Text = "Пензенская обл.", Value = "58" },
+                                                                     new SelectListItem() { Text = "Пермский обл.", Value = "59" },
+                                                                     new SelectListItem() { Text = "Псковская обл.", Value = "60" },
+                                                                     new SelectListItem() { Text = "Ростовская обл.", Value = "61" },
+                                                                     new SelectListItem() { Text = "Рязанская обл.", Value = "62" },
+                                                                     new SelectListItem() { Text = "Самарская обл.", Value = "63" },
+                                                                     new SelectListItem() { Text = "Саратовская обл.", Value = "64" },
+                                                                     new SelectListItem() { Text = "Сахалинская обл.", Value = "65" },
+                                                                     new SelectListItem() { Text = "Свердловская обл.", Value = "66" },
+                                                                     new SelectListItem() { Text = "Смоленская обл.", Value = "67" },
+                                                                     new SelectListItem() { Text = "Тамбовская обл.", Value = "68" },
+                                                                     new SelectListItem() { Text = "Тверская обл.", Value = "69" },
+                                                                     new SelectListItem() { Text = "Томская обл.", Value = "70" },
+                                                                     new SelectListItem() { Text = "Тульская обл.", Value = "71" },
+                                                                     new SelectListItem() { Text = "Тюменская обл.", Value = "72" },
+                                                                     new SelectListItem() { Text = "Ульяновская обл.", Value = "73" },
+                                                                     new SelectListItem() { Text = "Челябинская обл.", Value = "74" },
+                                                                     new SelectListItem() { Text = "Забайкальский край", Value = "75" },
+                                                                     new SelectListItem() { Text = "Ярославская обл.", Value = "76" },
+                                                                     new SelectListItem() { Text = "Москва", Value = "77" },
+                                                                     new SelectListItem() { Text = "Санкт-Петербург", Value = "78" },
+                                                                     new SelectListItem() { Text = "Еврейская АО", Value = "79" },
+                                                                     new SelectListItem() { Text = "Крым", Value = "82" },
+                                                                     new SelectListItem() { Text = "Ненецкий АО", Value = "83" },
+                                                                     new SelectListItem() { Text = "Ханты-Мансийский АО", Value = "86" },
+                                                                     new SelectListItem() { Text = "Чукотский АО", Value = "87" },
+                                                                     new SelectListItem() { Text = "Ямало-Ненецкий АО", Value = "89" },
+                                                                     new SelectListItem() { Text = "Севастополь", Value = "92" },
+                                                                     new SelectListItem() { Text = "Чечня", Value = "95" }
+                                                                 } )
+                                @*Html.ValidationMessageFor(m => m.UserName)*@
+
+                                @Html.TextBox("Email", null, new {Placeholder = "Электронная почта"})
+                                @*Html.ValidationMessageFor(m => m.Email)*@
+
+                                @Html.Password("Password", null, new {Placeholder = "Пароль"})
+                                @*Html.ValidationMessageFor(m => m.Password)*@
+
+                                <p>
+                                    <button type="submit" class="btn btn-primary iRegister">Регистрация</button>
+                                </p>
+                            }
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    
+</div>
+<p class="muted" >BiBiHelp © @DateTime.UtcNow.Year</p>

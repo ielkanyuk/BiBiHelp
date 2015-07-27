@@ -1,0 +1,188 @@
+﻿@model BiBiHelp.Models.Presenters.MessageListPresenter
+
+<script type="text/javascript">
+    $(function () {
+        $(document).ready(function () {
+            var wall = $.connection.messageHub;
+            wall.client.writeMessage = function (dataFromServer) {
+                var tmplMgrInfo = dataFromServer.TmplMgrInfo;
+                TemplateManager.AppendDataToContainer({
+                    tmplCacheKey: TemplateManager.GetTemplate(tmplMgrInfo.TemplateUrl),
+                    jsonData: dataFromServer.Data,
+                    placeholder: dataFromServer.TmplMgrInfo.Placeholder,
+                    isClear: false,
+                    toEnd: false
+                });
+            };            
+            
+            $.connection.hub.start().done(function() {
+
+                $(".iSubmit").click(function () {
+                    AjaxHelper.LoadContent({
+                        method: "POST",
+                        loadUrl: "/App/AddMessage/",
+                        traditional: true,
+                        postedData: {
+                            text: $(".iMessageText").val(),
+                            region: 2,
+                            anonymous: false
+                        },
+                        successFunc: function (dataFromServer) {
+                            if (dataFromServer.ReturnViewType != Enums.ReturnViewType.OperationFailed) {
+                                
+                                var data = JSON.parse(dataFromServer.JsonForTemplate);
+                                var tmplMgrInfo = data.TmplMgrInfo;
+                                
+                                wall.server.broadcastMessage(data.Data[0].Id);
+                                
+                                TemplateManager.AppendDataToContainer({
+                                    tmplCacheKey: TemplateManager.GetTemplate(tmplMgrInfo.TemplateUrl),
+                                    jsonData: data.Data,
+                                    placeholder: data.TmplMgrInfo.Placeholder,
+                                    isClear: false,
+                                    toEnd: false
+                                });
+
+                                $(".iMessageText").val("");
+                                $(".iDataContainer").click();
+                            }
+                        }
+                    });
+                });
+            });
+            
+            // Развернуть форму сообщения по клику на поле ввода текста
+            $(".iMessageText").focus(function () {
+                $(".snd_msg_form").css("height", "135px");
+                $(this).css("height","80px");
+                $(".snd_msg_bttns").show();
+            });
+            
+            // Скрыть форму сообщения при клике вне формы
+            $(document).click(function (e) {
+                if ($(e.target).parents().filter('.snd_msg_form:visible').length != 1 && $(e.target).filter('.snd_msg_form:visible').length != 1) {
+                    $(".snd_msg_form").css("height", "30px");
+                    $(".iMessageText").css("height", "20px");
+                    $(".snd_msg_bttns").hide();
+                }
+            });
+            
+            $(".iMessagesType").click(function (e) {
+                $(".iMessagesType").removeClass("active");
+                $(this).addClass("active");
+                return false;
+            });
+        });
+        
+        window.MessageInterface = {
+            containerId: undefined,
+            pageIndex: "1",
+            GetParams: function () {
+                var container = $("#" + this.containerId);
+                
+                return {
+                    containerId: this.containerId,
+                    region: "02"
+                };
+            }
+        };
+
+        var eventor = new ListEvent({
+            actionUrl: "@Url.Action("GetMessageList","App")",
+            EntityInterface: MessageInterface
+        });
+        
+        eventor.init();
+    });
+</script>
+
+@*<img class="banner" src="http://www.espressographics.com/html_graphics/Banner_728x90.gif" width="728" height="90">*@
+
+@*<div class="send-message-form">
+    <textarea class="iMessageText" style="width: 97%; height: 80px; border-radius: 0px; resize: none;" placeholder="Написать сообщение..."></textarea>
+    <div style="float: left;">
+        <button class="btn btn-primary iSubmit" type="button">Отправить</button>
+    </div>
+
+    <label class="checkbox" style="float: left; margin-left: 20px; margin-top: 5px; font-size: 12px;">
+        <input type="checkbox"> Анонимно
+    </label>
+    
+    <div style="float: right; margin-right: 15px; margin-top: 3px;">
+        <div class="btn-group">
+            <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
+                Прикрепить
+                <span class="caret"></span>
+            </button>
+            <p></p>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="#">Изображение</a>
+                </li>
+                <li>
+                    <a href="#">Видео</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>*@
+
+<div class="lenta">Лента <div class="switch_msg_list"><a href="#" class="iMessagesType">Мои сообщения</a> | <a href="@Url.Action("Support","App")" class="iMessagesType active">Все по региону:</a> <a href="#" class="active">Башкортостан</a></div></div>
+<div class="snd_msg_form">
+    <textarea class="iMessageText" style="width: 97%; height: 20px; margin-bottom: 0px; border-radius: 0px; resize: none;" placeholder="Написать сообщение..."></textarea>
+    
+    <div class="snd_msg_bttns">
+        <div style="float: left;">
+            <button class="btn btn-primary iSubmit" type="button">Отправить</button>
+        </div>
+        @*<iframe width="360" height="255" src="http://www.youtube.com/embed/BSOQ91ax434?rel=0" frameborder="0" allowfullscreen></iframe>*@
+
+
+        <label class="checkbox" style="float: left; margin-left: 20px; margin-top: 5px; font-size: 12px;">
+            <input type="checkbox"> Анонимно
+        </label>
+    
+            <div style="float: right; margin-right: 15px; margin-top: 3px;">
+                <div class="btn-group">
+                    <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
+                        Прикрепить
+                        <span class="caret"></span>
+                    </button>
+                    <p></p>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#">Изображение</a>
+                        </li>
+                        <li>
+                            <a href="#">Видео</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+@*<div class="message row-fluid">
+    <div class="span10">
+        <div class="row-fluid">
+            <div class="span2"><img class="img-rounded" src="/Content/img/no_avatar.png" width="70" height="70"></div>
+            <div class="span8">Пробка на выезд из города!</div>
+        </div>
+        <div class="row-fluid">
+            <div class="span2"></div>
+            <div class="span8 muted"><small>сегодня в 11:32</small></div>
+        </div>
+        <div class="row-fluid">
+            <div class="span2"></div>
+            <div class="span8" style="height: 20px; width: 80%; background-color: #f1f1f1; "></div>
+        </div>
+    </div>
+    
+</div>*@
+
+@*<hr style="width: 80%; margin: 0 auto 20px;">*@
+
+<div class="iDataContainer"></div>
+
+<a href="#" class="more">Показать предыдущие записи &darr;</a>

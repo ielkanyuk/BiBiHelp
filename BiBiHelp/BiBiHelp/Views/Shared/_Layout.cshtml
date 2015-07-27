@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Автопейджер BiBiHelp</title>
+    <link href="@Url.Content("~/Content/css/bootstrap.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/css/style.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Base/ListActions.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Base/EventDelegateFabric.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Base/AjaxHelper.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Base/global.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Base/Storage.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Template/TemplateManager.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Template/doT.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.signalR-2.1.0.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/signalr/hubs")" type="text/javascript"></script>
+    <script type="text/javascript" src="http://mybootstrap.ru/wp-content/themes/clear-theme/js/bootstrap-dropdown.js"></script>
+    @*<script src="@Url.Content("~/Scripts/modernizr-2.5.3.js")" type="text/javascript"></script>*@
+    
+    <!-- Традиционная иконка сайта, размер 16x16, прозрачность поддерживается. Рекомендуемый формат: .ico -->
+    <link rel="shortcut icon" href="favicon.ico" />
+</head>
+    <body>
+        @*<div class="menu-background">@Html.ActionLink("О проекте", "About", "App") | @Html.ActionLink("Техподдержка", "Support", "App") | @Html.ActionLink("Правила", "Rules", "App")</div>*@
+        <div class="container-narrow">
+            <header class="header">
+                <a href="/"><img src="@Url.Content("~/Content/img/logo.png")"></a>
+                <div class="logindisplay">
+                    <p>@Html.ActionLink("О проекте", "About", "App") | @Html.ActionLink("Техподдержка", "Support", "App") | @Html.ActionLink("Правила", "Rules", "App")</p>
+                    <br/><p style="float: right;"><span class="label label-info">@Html.Partial("_LogOnPartial")</span></p>
+                </div>
+                @*<nav>
+                    <ul id="menu">
+                        <li>@Html.ActionLink("О проекте", "About", "App")</li>
+                        <li>@Html.ActionLink("Техподдержка", "Support", "App")</li>
+                        <li>@Html.ActionLink("Правила", "Rules", "App")</li>
+                    </ul>
+                </nav>*@
+            </header>
+            <section class="main">
+                @RenderBody()
+            </section>
+            <footer>
+            </footer>
+        </div>
+    </body>
+</html>
